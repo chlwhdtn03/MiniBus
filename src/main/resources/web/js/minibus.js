@@ -138,6 +138,8 @@ function animate() {
         updatePlayer( dt );
 
     }
+
+    $("#debug").html("[DEBUG]<br>X : "+camera.position.x+"<br>Y : "+camera.position.y+"<br>Z : "+camera.position.z)
     renderer.render(scene, camera)
     requestAnimationFrame(animate)
 }
@@ -148,7 +150,6 @@ function updatePlayer( deltaTime ) {
     playerVelocity.addScaledVector( playerVelocity, damping );
     const deltaPosition = playerVelocity.clone().multiplyScalar( deltaTime );
     camera.position.add(deltaPosition)
-    $("#debug").html("[DEBUG]<br>X : "+camera.position.x+"<br>Y : "+camera.position.y+"<br>Z : "+camera.position.z)
 
 }
 
