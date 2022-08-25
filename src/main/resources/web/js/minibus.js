@@ -59,7 +59,9 @@ container.addEventListener( 'mousemove', ( event ) => {
     if ( document.pointerLockElement === container ) {
 
         camera.rotation.y -= event.movementX / 500;
-        camera.rotation.x -= event.movementY / 500;
+
+        if(Math.abs(camera.rotation.x - event.movementY / 500) < 1)
+            camera.rotation.x -= event.movementY / 500;
 
     }
 
@@ -139,7 +141,7 @@ function animate() {
 
     }
 
-    $("#debug").html("[DEBUG]<br>X : "+camera.position.x+"<br>Y : "+camera.position.y+"<br>Z : "+camera.position.z)
+    $("#debug").html("[DEBUG]<br>X : "+camera.position.x+"<br>Y : "+camera.position.y+"<br>Z : "+camera.position.z+"<br>Forward : "+ Math.round(camera.rotation.x*100)/100 + ", " + Math.round(camera.rotation.y*100)/100)
     renderer.render(scene, camera)
     requestAnimationFrame(animate)
 }
