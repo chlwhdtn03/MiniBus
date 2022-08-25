@@ -81,7 +81,7 @@ $(function () {
         var userName = $("#intro-name").val().trim();
         if(userName.trim() == "")
             return;
-        my = new Player(userName, 0, 0);
+        my = new Player(userName, 0, 0, 0);
         joinGame();
     });
 
@@ -122,7 +122,7 @@ function joinGame() {
             case "move":
                 getPlayer(data.name).x = data.x;
                 getPlayer(data.name).y = data.y;
-                getPlayer(data.name).direction = data.direction;
+                getPlayer(data.name).z = data.z;
                 break;
         }
     }
@@ -147,8 +147,8 @@ function updatePlayer( deltaTime ) {
     let damping = Math.exp( - 4 * deltaTime ) - 1;
     playerVelocity.addScaledVector( playerVelocity, damping );
     const deltaPosition = playerVelocity.clone().multiplyScalar( deltaTime );
-    console.log(deltaPosition)
     camera.position.add(deltaPosition)
+    $("#debug").html("[DEBUG]<br>X : "+camera.position.x+"<br>Y : "+camera.position.y+"<br>Z : "+camera.position.z)
 
 }
 

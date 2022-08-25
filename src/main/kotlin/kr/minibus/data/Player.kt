@@ -8,5 +8,4 @@ data class Player(
     var x: Double,
     var y: Double,
     var z: Double
-
 )

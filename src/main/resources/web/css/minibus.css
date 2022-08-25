@@ -27,6 +27,14 @@ body {
 
 }
 
+#debug {
+    position: fixed;
+    overflow: auto;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 100;
+}
+
 .intro-content {
 
     text-align: center;
