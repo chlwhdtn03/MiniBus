@@ -1,0 +1,194 @@
+body {
+    margin: 0;
+}
+
+
+#InGameFrame {
+    padding: 0;
+    margin: 0;
+}
+
+#InGameCanvas {
+    display: block;
+}
+
+
+#intro-form {
+
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: black;
+    background-color: rgba(0, 0, 0, 0.5);
+
+}
+
+.intro-content {
+
+    text-align: center;
+    animation: fadein 0.6s;
+    border-radius: 20px;
+    background-color: white;
+    border: 1px solid gray;
+    margin: 4% auto;
+    padding: 20px;
+    width: 80%;
+    background-image: url("images/logo.png");
+}
+
+#intro-name {
+
+    background-color: rgba(0, 0, 0, 0);
+    text-align: center;
+    font-size: 20px;
+    outline: none;
+    border: none;
+    border-bottom: 4px solid steelblue;
+}
+
+button {
+    background-color: steelblue; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+@keyframes fadein {
+
+    0% { transform: scale(0)}
+    80% {transform: scale(1.1)}
+    100% {transform: scale(1)}
+
+}
+
+#playerbox {
+    margin: 10px;
+    padding: 15px;
+    display: inline-block;
+    text-align: center;
+    background-color: #148BA6;
+    color: white;
+    max-width: 30%
+}
+
+#playerphoto {
+    background: white;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+
+#Queue {
+    padding-bottom: 23rem;
+}
+
+
+
+#input-chat {
+
+    width: 100%;
+    font-size: 16px;
+    padding: 5px;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    border-bottom: 4px solid steelblue;
+}
+
+#footer-chat {
+    z-index:2;
+    margin-top: 10px;
+    border: 2px solid #32a1ce;
+    height: 15rem;
+    background-color: rgba(200, 200, 200, 0.5);
+    overflow: auto;
+    margin-bottom: 10px;
+}
+
+#footer {
+    opacity: 1;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(200, 200, 200, 0.5);
+    padding: 10px;
+    box-sizing: border-box;
+
+}
+
+
+
+
+
+
+#killcam {
+    z-index: 2;
+    right: 30px;
+    top: 30px;
+    width: 40%;
+    height: 300px;
+    position: fixed;
+    pointer-events:none;
+}
+
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    background-color: #333; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 1; /* Add a z-index if needed */
+    top: 30px; /* 30px from the top */
+    opacity: 0.9;
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+    visibility: visible; /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s;
+    animation: fadein 0.5s;
+}
+
+#snackbar.hide {
+
+    -webkit-animation: fadeout 0.5s;
+    animation: fadeout 0.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {top: 0; opacity: 0;}
+    to {top: 30px; opacity: 0.9;}
+}
+
+@keyframes fadein {
+    from {top: 0; opacity: 0;}
+    to {top: 30px; opacity: 0.9;}
+}
+
+@-webkit-keyframes fadeout {
+    from {top: 30px; opacity: 0.9; visibility: visible;}
+    to {top: 0; opacity: 0; visibility: hidden;}
+}
+
+@keyframes fadeout {
+    from {top: 30px; opacity: 0.9; visibility: visible;}
+    to {top: 0; opacity: 0; visibility: hidden;}
+}

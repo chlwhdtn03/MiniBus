@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>MiniBus</title>
+    <link href="css/minibus.css" rel="stylesheet">
+</head>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+
+    <div id="intro-form">
+        <div class="intro-content">
+            <form id="select-name">
+                <h3>MiniBus 사용할 닉네임을 입력하세요</h3>
+                <hr style="height: 10px; box-shadow: 0 5px 5px -5px #8c8b8b inset; border: 0;">
+                <input name="name" id="intro-name" autocomplete="off" type="text" placeholder="닉네임을 입력..."/>
+                <button id="intro-join" type="submit">참가</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div id="InGameFrame" tabindex="0" style="display: none;">
+    </div>
+
+    <script src="js/lib/three.js"></script>
+    <script src="js/lib/jquery.js"></script>
+    <script src="js/minibus.js"></script>
+</body>
+</html>
