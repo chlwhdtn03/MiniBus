@@ -33,6 +33,7 @@ class MiniBusServer {
                         req.response().end(buffer)
                     }
             } catch (e: Exception) {
+                println("ERROR ${req.path()}")
                 req.response().setStatusCode(404).end()
             }
 
