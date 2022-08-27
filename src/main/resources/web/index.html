@@ -120,8 +120,12 @@
             if ( document.pointerLockElement === container ) {
 
                 camera.rotation.y -= event.movementX / 500;
-                if(Math.abs(camera.rotation.y*(180 / Math.PI)) > 360) {
-                    camera.rotation.y *= -1
+                if(camera.rotation.y*(180 / Math.PI) >= 360 && event.movementX < 0) {
+                    console.log("left")
+                    camera.rotation.y = (camera.rotation.y*(180 / Math.PI)-360) * (Math.PI / 180)
+                } else if(camera.rotation.y*(180 / Math.PI) < 0 && event.movementX > 0) {
+                    console.log("right")
+                    camera.rotation.y = (360+camera.rotation.y*(180 / Math.PI)) * (Math.PI / 180)
                 }
                 my.ry = camera.rotation.y
 
@@ -192,7 +196,6 @@
                 switch(type) {
 
                     case "join":
-                        console.log(data)
                         joinPlayer(data)
                         break;
 
@@ -215,7 +218,6 @@
             for(const p of joined) {//character.position.setScalar(camera.position)
                 if(p.name == my.name)
                     continue
-                console.log(p.character)
                 p.character.position.set(p.x,0,p.z)
                 // p.character.rotation.x = p.rx
                 p.character.rotation.y = p.ry*(180 / Math.PI) * Math.PI / 180
