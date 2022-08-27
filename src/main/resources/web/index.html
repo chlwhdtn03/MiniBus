@@ -127,7 +127,7 @@
                     console.log("right")
                     camera.rotation.y = (360+camera.rotation.y*(180 / Math.PI)) * (Math.PI / 180)
                 }
-                my.ry = camera.rotation.y
+                my.ry = camera.rotation.y*(180 / Math.PI) // 0~360도
 
                 if(Math.abs(camera.rotation.x - event.movementY / 500) < 1) {
                     camera.rotation.x -= event.movementY / 500;
@@ -220,7 +220,7 @@
                     continue
                 p.character.position.set(p.x,0,p.z)
                 // p.character.rotation.x = p.rx
-                p.character.rotation.y = p.ry*(180 / Math.PI) * Math.PI / 180
+                p.character.rotation.y = (p.ry-180) * Math.PI / 180
             }
         }
 
