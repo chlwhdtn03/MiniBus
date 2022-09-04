@@ -35,13 +35,15 @@
   {
     "imports": {
       "three": "https://unpkg.com/three@0.143.0/build/three.module.js",
-      "GLTFLoader": "https://unpkg.com/three@0.143.0/examples/jsm/loaders/GLTFLoader.js"
+      "GLTFLoader": "https://unpkg.com/three@0.143.0/examples/jsm/loaders/GLTFLoader.js",
+      "TextGeometry": "https://unpkg.com/three@0.143.0/examples/jsm/geometries/TextGeometry.js"
     }
   }
     </script>
     <script type="module">
         import * as THREE from 'three';
         import {GLTFLoader} from "GLTFLoader";
+        import {TextGeometry} from "TextGeometry";
 
         const keyStates = {};
 
@@ -221,6 +223,8 @@
                 p.character.position.set(p.x,0,p.z)
                 // p.character.rotation.x = p.rx
                 p.character.rotation.y = (p.ry-180) * Math.PI / 180
+                p.nametag.position.set(p.x, 4, p.z)
+                p.nametag.rotation.y = camera.rotation.y
             }
         }
 
@@ -244,7 +248,7 @@
                 const movePacket = new Packet("move", my);
                 socket.send(JSON.stringify(movePacket).trim());
 
-            }, 1000/5);
+            }, 1000/20);
         }
 
         function updatePlayer( deltaTime ) {
@@ -323,6 +327,7 @@
             this.rx = rx;
             this.ry = ry;
             this.character = null
+            this.nametag = null
         }
 
         function Packet(type, data) {
@@ -349,6 +354,31 @@
 
                     player.character = gltf.scene;
                     scene.add( player.character );
+
+                    // const nametext = new TextGeometry(player.name)
+                    // nametext.computeBoundingBox();
+                    // nametext.computeVertexNormals();
+                    const canvas1 = document.createElement('canvas');
+                    const context1 = canvas1.getContext('2d');
+                    context1.font = "Bold 40px Arial";
+                    context1.fillStyle = "rgba(75,75,75,0.95)";
+                    context1.fillText(player.name, 100, 100);
+
+                    // canvas contents will be used for a texture
+                    var texture1 = new THREE.Texture(canvas1)
+                    texture1.needsUpdate = true;
+
+                    var material1 = new THREE.MeshBasicMaterial( {map: texture1, side:THREE.DoubleSide } );
+                    material1.transparent = true;
+
+                    var nametag = new THREE.Mesh(
+                        new THREE.PlaneGeometry(5, 2),
+                        material1
+                    );
+
+                    player.nametag = nametag
+                    scene.add(nametag)
+
                     joined.push(player)
 
                 }, undefined, function ( e ) {
