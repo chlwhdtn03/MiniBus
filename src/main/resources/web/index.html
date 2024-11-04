@@ -36,7 +36,8 @@
       "imports": {
         "three": "https://unpkg.com/three@0.143.0/build/three.module.js",
         "GLTFLoader": "https://unpkg.com/three@0.143.0/examples/jsm/loaders/GLTFLoader.js",
-        "TextGeometry": "https://unpkg.com/three@0.143.0/examples/jsm/geometries/TextGeometry.js"
+        "TextGeometry": "https://unpkg.com/three@0.143.0/examples/jsm/geometries/TextGeometry.js",
+        "FontLoader": "https://unpkg.com/three@0.143.0/examples/jsm/loaders/FontLoader.js"
       }
     }
 </script>
@@ -44,8 +45,14 @@
     import * as THREE from 'three';
     import {GLTFLoader} from "GLTFLoader";
     import {TextGeometry} from "TextGeometry";
+    import {FontLoader} from "FontLoader";
 
     const keyStates = {};
+    let font
+    const floader = new FontLoader();
+    floader.load('fonts/helvetiker_regular.typeface.json', function(response) {
+        font = response
+    })
 
 
     const clock = new THREE.Clock();
@@ -223,7 +230,10 @@
             p.character.position.set(p.x,0,p.z)
             // p.character.rotation.x = p.rx
             p.character.rotation.y = (p.ry-180) * Math.PI / 180
-            p.nametag.position.set(p.x, 4, p.z)
+            p.nametag.position.set(
+                p.x,
+                p.y+1,
+                p.z)
             p.nametag.rotation.y = camera.rotation.y
         }
     }
@@ -328,6 +338,7 @@
         this.ry = ry;
         this.character = null
         this.nametag = null
+        this.nameGeo = null
     }
 
     function Packet(type, data) {
@@ -358,25 +369,46 @@
                 // const nametext = new TextGeometry(player.name)
                 // nametext.computeBoundingBox();
                 // nametext.computeVertexNormals();
-                const canvas1 = document.createElement('canvas');
-                const context1 = canvas1.getContext('2d');
-                context1.font = "Bold 40px Arial";
-                context1.fillStyle = "rgba(75,75,75,0.95)";
-                context1.fillText(player.name, 100, 100);
+
+                // const canvas1 = document.createElement('canvas');
+                // const context1 = canvas1.getContext('2d');
+                // context1.textBaseline = "middle";
+                // context1.textAlign = "center";
+                // context1.font = "Bold 15px 맑은고딕";
+                // canvas1.width  = context1.measureText(player.name).width
+                // canvas1.height = canvas1.width / 2
+                //
+                // context1.fillStyle = "rgba(75,75,75,0.95)";
+                // context1.fillRect(0, 0, canvas1.width, canvas1.height);
+                // context1.fillStyle = "rgb(255,255,255)";
+                // context1.fillText(player.name, canvas1.width / 2, 75);
+                // console.log(canvas1.width + " " + canvas1.height)
 
                 // canvas contents will be used for a texture
-                var texture1 = new THREE.Texture(canvas1)
-                texture1.needsUpdate = true;
-
-                var material1 = new THREE.MeshBasicMaterial( {map: texture1, side:THREE.DoubleSide } );
+                // var texture1 = new THREE.Texture(canvas1)
+                // texture1.needsUpdate = true;
+                //
+                var nameGeo = new TextGeometry(player.name, {
+                    font: font,
+                    size: 0.5,
+                    height: 0
+                });
+                nameGeo.computeBoundingBox();
+                const material1 = new THREE.MeshBasicMaterial( {
+                    color: 0x000000,
+                });
                 material1.transparent = true;
+                //
+                // var nametag = new THREE.Mesh(
+                //     new THREE.PlaneGeometry(2, 1),
+                //     material1
+                // );
 
-                var nametag = new THREE.Mesh(
-                    new THREE.PlaneGeometry(5, 2),
-                    material1
-                );
+                var nametag = new THREE.Mesh(nameGeo, material1)
 
                 player.nametag = nametag
+                player.nameGeo = nameGeo
+
                 scene.add(nametag)
 
                 joined.push(player)
