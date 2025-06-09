@@ -3,3 +3,5 @@
 /build/
 /build/classes/kotlin/main/
 /src/main/node_modules/
+.idea/gradle.xml
+.idea/misc.xml
